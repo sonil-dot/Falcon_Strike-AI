@@ -1,0 +1,6 @@
+[
+  {"id": "DET-001", "name": "IAM/EC2 enumeration burst", "match": ["api:iam:ListRoles", "api:ec2:DescribeSecurityGroups"], "delay_s": 42},
+  {"id": "DET-002", "name": "AssumeRole chain",           "match": ["api:sts:AssumeRole"],                              "delay_s": 65},
+  {"id": "DET-003", "name": "Sensitive SSM parameter read", "match": ["api:ssm:GetParameter"],                          "delay_s": 120},
+  {"id": "DET-004", "name": "Periodic beacon to rare destination", "match": ["net:beacon"],                             "delay_s": 180}
+]
