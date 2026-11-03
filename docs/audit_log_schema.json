@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "falcon-audit-log/1.0",
+  "title": "Falcon Strike-AI audit record (one JSON object per line)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "ts",
+    "run_id",
+    "actor",
+    "event",
+    "outcome",
+    "params",
+    "iocs",
+    "prev_hash",
+    "hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "ts": {
+      "type": "string",
+      "description": "UTC, RFC 3339, millisecond precision, e.g. 2026-11-03T08:29:01.123Z"
+    },
+    "run_id": {
+      "type": "string",
+      "description": "Correlation ID threading every event of one campaign"
+    },
+    "actor": {
+      "type": "string",
+      "description": "falcon | executor | guardrail | planner:<name> | teardown | killswitch"
+    },
+    "event": {
+      "type": "string"
+    },
+    "attack_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "MITRE ATT&CK technique ID, e.g. T1098"
+    },
+    "technique_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Library technique ID, e.g. privesc.role_chain"
+    },
+    "target": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "params": {
+      "type": "object"
+    },
+    "outcome": {
+      "type": "string",
+      "description": "ok | blocked | simulated_ok | executed_ok | failed | verified | FAILED | halted | error ..."
+    },
+    "iocs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "prev_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "sha256(prev_hash + canonical_json(record without prev_hash/hash)); first record's prev_hash is 64 zeros"
+    }
+  }
+}
