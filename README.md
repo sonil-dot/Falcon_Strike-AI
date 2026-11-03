@@ -9,7 +9,7 @@ The main idea behind this project is simple: instead of waiting for an actual at
 
 I developed this project to understand how cloud misconfigurations, excessive permissions and weak security monitoring can create opportunities for attackers.
 
-The project uses AWS-style lab resources and includes safety checks to ensure that testing stays within the intended environment.
+The project uses Moto to simulate AWS services during testing. This allowed me to experiment with cloud resources, permissions and attack-path scenarios without needing a real AWS account.
 
 ## Project Objectives
 
@@ -195,6 +195,7 @@ This project is a controlled lab implementation and has some limitations:
 - It implements five selected attack techniques rather than the complete MITRE ATT&CK framework.
 - The detection component is a simulated monitoring system, not a production SIEM.
 - Beacon communication uses HTTP with a local listener; advanced C2 techniques such as DNS signalling and TLS fingerprinting are not implemented.
+- The project was tested using Moto's mock AWS environment and was not validated against a real  AWS account. Therefore, its behaviour may differ from an actual AWS deployment.
 - The mock AWS environment does not represent every behaviour of a real AWS account.
 - The Terraform configuration and AWS backend have not been validated against a real AWS account.
 - IAM policy analysis does not cover every possible AWS policy condition and restriction.
