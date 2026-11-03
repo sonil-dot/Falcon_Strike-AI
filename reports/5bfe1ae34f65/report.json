@@ -1,0 +1,179 @@
+{
+  "schema": "falcon-report/1.0",
+  "run": {
+    "status": "completed",
+    "teardown": "verified",
+    "killed": false,
+    "run_id": "5bfe1ae34f65",
+    "account": "123456789012",
+    "mode": "live",
+    "top_path": "Account 123456789012 (any principal) -> falcon-lab-lowpriv -> falcon-lab-deploy -> falcon-lab-wildcard-admin",
+    "top_score": 3.83
+  },
+  "rules_file": "rules_baseline.json",
+  "latency_note": "Detection latency is SIMULATED by the detection stub (rule delay_s).",
+  "narrative": "Top-ranked attack path: Account 123456789012 (any principal) -> falcon-lab-lowpriv -> falcon-lab-deploy -> falcon-lab-wildcard-admin. The engine emulated an adversary walking this path in account 123456789012 (live mode). Stages executed, in order: T1580 (discovery.cloud_infra); T1098 (privesc.role_chain); T1098 (privesc.role_chain); T1552 (credaccess.marker_secret); T1136 (persist.temp_role); T1071 (c2.https_beacon). All behaviour was non-destructive and reversible; teardown result: verified.",
+  "detection": {
+    "techniques": [
+      {
+        "technique_id": "discovery.cloud_infra",
+        "attack_id": "T1580",
+        "iocs": [
+          {
+            "ioc": "api:iam:ListRoles",
+            "detected": true,
+            "rule": "DET-001",
+            "detected_at": "2026-11-03T13:56:29.236000+00:00"
+          },
+          {
+            "ioc": "api:ec2:DescribeSecurityGroups",
+            "detected": true,
+            "rule": "DET-001",
+            "detected_at": "2026-11-03T13:56:29.236000+00:00"
+          },
+          {
+            "ioc": "api:s3:ListBuckets",
+            "detected": false,
+            "rule": null,
+            "detected_at": null
+          }
+        ],
+        "first_start": "2026-11-03T13:55:47.215Z",
+        "runs": 1,
+        "status": "partial",
+        "ttd_s": 42.0
+      },
+      {
+        "technique_id": "privesc.role_chain",
+        "attack_id": "T1098",
+        "iocs": [
+          {
+            "ioc": "api:sts:AssumeRole to=arn:aws:iam::123456789012:role/falcon-lab-deploy",
+            "detected": true,
+            "rule": "DET-002",
+            "detected_at": "2026-11-03T13:56:52.258000+00:00"
+          },
+          {
+            "ioc": "api:sts:AssumeRole to=arn:aws:iam::123456789012:role/falcon-lab-wildcard-admin",
+            "detected": true,
+            "rule": "DET-002",
+            "detected_at": "2026-11-03T13:56:52.273000+00:00"
+          }
+        ],
+        "first_start": "2026-11-03T13:55:47.240Z",
+        "runs": 2,
+        "status": "detected",
+        "ttd_s": 65.0
+      },
+      {
+        "technique_id": "credaccess.marker_secret",
+        "attack_id": "T1552",
+        "iocs": [
+          {
+            "ioc": "api:ssm:GetParameter name=/falcon-lab/marker-secret",
+            "detected": true,
+            "rule": "DET-003",
+            "detected_at": "2026-11-03T13:57:47.289000+00:00"
+          }
+        ],
+        "first_start": "2026-11-03T13:55:47.278Z",
+        "runs": 1,
+        "status": "detected",
+        "ttd_s": 120.0
+      },
+      {
+        "technique_id": "persist.temp_role",
+        "attack_id": "T1136",
+        "iocs": [
+          {
+            "ioc": "api:iam:CreateRole name=falcon-run-0",
+            "detected": false,
+            "rule": null,
+            "detected_at": null
+          }
+        ],
+        "first_start": "2026-11-03T13:55:47.301Z",
+        "runs": 1,
+        "status": "missed",
+        "ttd_s": null
+      },
+      {
+        "technique_id": "c2.https_beacon",
+        "attack_id": "T1071",
+        "iocs": [
+          {
+            "ioc": "net:beacon sink=127.0.0.1:8443 interval=2s jitter=20% ua=falcon-beacon/1.0",
+            "detected": true,
+            "rule": "DET-004",
+            "detected_at": "2026-11-03T13:58:49.047000+00:00"
+          },
+          {
+            "ioc": "net:marker FALCON-INERT-BEACON count=4",
+            "detected": false,
+            "rule": null,
+            "detected_at": null
+          }
+        ],
+        "first_start": "2026-11-03T13:55:47.324Z",
+        "runs": 1,
+        "status": "partial",
+        "ttd_s": 181.7
+      }
+    ],
+    "summary": {
+      "techniques_total": 5,
+      "detected": 2,
+      "partial": 2,
+      "missed": 1,
+      "ioc_coverage_pct": 66.7,
+      "mttd_s": 102.2
+    }
+  },
+  "remediation": [
+    {
+      "priority": 1,
+      "severity": "Critical",
+      "action": "Remove Action:* / Resource:* from role 'falcon-lab-wildcard-admin'; grant least privilege."
+    },
+    {
+      "priority": 2,
+      "severity": "High",
+      "action": "Tighten trust/permissions so 'falcon-lab-lowpriv' cannot assume 'falcon-lab-deploy' (add conditions: MFA, ExternalId, source)."
+    },
+    {
+      "priority": 3,
+      "severity": "High",
+      "action": "Tighten trust/permissions so 'falcon-lab-deploy' cannot assume 'falcon-lab-wildcard-admin' (add conditions: MFA, ExternalId, source)."
+    },
+    {
+      "priority": 4,
+      "severity": "High",
+      "action": "Tighten trust/permissions so 'falcon-lab-wildcard-admin' cannot assume 'falcon-lab-lowpriv' (add conditions: MFA, ExternalId, source)."
+    },
+    {
+      "priority": 5,
+      "severity": "High",
+      "action": "Enable S3 Block Public Access on 'falcon-lab-public-123456789012'."
+    },
+    {
+      "priority": 6,
+      "severity": "High",
+      "action": "Detection gap (missed) for T1136 persist.temp_role: Alert on iam:CreateRole/CreateUser outside an approved change window or by non-pipeline principals."
+    },
+    {
+      "priority": 7,
+      "severity": "Medium",
+      "action": "Restrict 0.0.0.0/0 ingress on security group 'falcon-lab-open-sg'."
+    },
+    {
+      "priority": 8,
+      "severity": "Medium",
+      "action": "Detection gap (partial) for T1580 discovery.cloud_infra: Alert on bursts of List*/Describe* API calls from a single principal (incl. s3:ListBuckets)."
+    },
+    {
+      "priority": 9,
+      "severity": "Medium",
+      "action": "Detection gap (partial) for T1071 c2.https_beacon: Alert on fixed-interval outbound callbacks (low timing variance) and on the beacon payload pattern."
+    }
+  ]
+}
