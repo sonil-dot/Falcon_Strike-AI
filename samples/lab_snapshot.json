@@ -1,0 +1,139 @@
+{
+  "account_id": "123456789012",
+  "iam": {
+    "UserDetailList": [],
+    "GroupDetailList": [],
+    "Policies": [],
+    "RoleDetailList": [
+      {
+        "RoleName": "falcon-lab-lowpriv",
+        "Arn": "arn:aws:iam::123456789012:role/falcon-lab-lowpriv",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": "sts:AssumeRole",
+              "Principal": {
+                "AWS": "arn:aws:iam::123456789012:root"
+              }
+            }
+          ]
+        },
+        "RolePolicyList": [
+          {
+            "PolicyName": "assume-deploy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": "sts:AssumeRole",
+                  "Resource": "arn:aws:iam::123456789012:role/falcon-lab-deploy"
+                }
+              ]
+            }
+          }
+        ],
+        "AttachedManagedPolicies": []
+      },
+      {
+        "RoleName": "falcon-lab-deploy",
+        "Arn": "arn:aws:iam::123456789012:role/falcon-lab-deploy",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": "sts:AssumeRole",
+              "Principal": {
+                "AWS": "arn:aws:iam::123456789012:role/falcon-lab-lowpriv"
+              }
+            }
+          ]
+        },
+        "RolePolicyList": [
+          {
+            "PolicyName": "assume-admin",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": "sts:AssumeRole",
+                  "Resource": "arn:aws:iam::123456789012:role/falcon-lab-wildcard-admin"
+                }
+              ]
+            }
+          }
+        ],
+        "AttachedManagedPolicies": []
+      },
+      {
+        "RoleName": "falcon-lab-wildcard-admin",
+        "Arn": "arn:aws:iam::123456789012:role/falcon-lab-wildcard-admin",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": "sts:AssumeRole",
+              "Principal": {
+                "AWS": "arn:aws:iam::123456789012:role/falcon-lab-deploy"
+              }
+            }
+          ]
+        },
+        "RolePolicyList": [
+          {
+            "PolicyName": "wildcard-all",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": "*",
+                  "Resource": "*"
+                }
+              ]
+            }
+          }
+        ],
+        "AttachedManagedPolicies": []
+      }
+    ]
+  },
+  "exposure": {
+    "SecurityGroups": [
+      {
+        "GroupId": "sg-0abc",
+        "GroupName": "falcon-lab-open-sg",
+        "IpPermissions": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "IpRanges": [
+              {
+                "CidrIp": "0.0.0.0/0"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "Instances": [],
+    "Buckets": [
+      {
+        "Name": "falcon-lab-public-123456789012",
+        "PublicAccessBlock": {
+          "BlockPublicAcls": false,
+          "BlockPublicPolicy": false,
+          "IgnorePublicAcls": false,
+          "RestrictPublicBuckets": false
+        },
+        "IsPublic": true
+      }
+    ]
+  }
+}
