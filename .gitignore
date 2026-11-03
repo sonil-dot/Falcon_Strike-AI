@@ -1,0 +1,25 @@
+# Generated runs and reports
+runs/
+KILL
+
+# Python temporary files
+__pycache__/
+*.pyc
+.coverage
+.pytest_tmp/
+.pytest_cache/
+
+# Generated files
+snapshot.json
+tampered.jsonl
+
+# Environment and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Virtual environments
+venv/
+.venv/
