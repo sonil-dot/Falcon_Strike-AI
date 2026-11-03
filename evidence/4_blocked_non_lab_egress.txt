@@ -1,0 +1,7 @@
+run id: bba948903662   mode: dry-run
+[1/5] preflight OK (account 123456789012, mode dry-run)
+[2/5] graph built: 7 nodes, 6 edges
+[3/5] top path (score 3.83): Account 123456789012 (any principal) -> falcon-lab-lowpriv -> falcon-lab-deploy -> falcon-lab-wildcard-admin
+
+status: BLOCKED: sink 'evil.example.com:443' is not a lab-owned endpoint
+audit log: runs/bba948903662.audit.jsonl (hash chain VALID)

@@ -1,0 +1,15 @@
+run id: 3f29fd13cd69   mode: dry-run
+[1/5] preflight OK (account 123456789012, mode dry-run)
+[2/5] graph built: 7 nodes, 6 edges
+[3/5] top path (score 3.83): Account 123456789012 (any principal) -> falcon-lab-lowpriv -> falcon-lab-deploy -> falcon-lab-wildcard-admin
+[4/5] plan approved by guardrails: 6 actions
+[5/5] dry-run simulation (touches nothing):
+   1. T1580  discovery.cloud_infra      OK   would enumerate 3 roles + security groups (read-only)
+   2. T1098  privesc.role_chain         OK   would call sts:AssumeRole along an existing graph edge
+   3. T1098  privesc.role_chain         OK   would call sts:AssumeRole along an existing graph edge
+   4. T1552  credaccess.marker_secret   OK   would read a planted marker parameter
+   5. T1136  persist.temp_role          OK   would create a tagged, benign, auto-removed role
+   6. T1071  c2.https_beacon            OK   would send 4 jittered HTTPS beacons to lab sink
+
+status: completed
+audit log: runs/3f29fd13cd69.audit.jsonl (hash chain VALID)

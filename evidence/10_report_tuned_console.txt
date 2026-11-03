@@ -1,0 +1,3 @@
+
+SOC report written to reports/tuned/ (report.html, report.md, report.json)
+  detected 5 | partial 0 | missed 0 | IOC coverage 100.0% | MTTD 81.7 s

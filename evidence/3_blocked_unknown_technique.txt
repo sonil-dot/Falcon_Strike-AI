@@ -1,0 +1,7 @@
+run id: c8d502b07fd2   mode: dry-run
+[1/5] preflight OK (account 123456789012, mode dry-run)
+[2/5] graph built: 7 nodes, 6 edges
+[3/5] top path (score 3.83): Account 123456789012 (any principal) -> falcon-lab-lowpriv -> falcon-lab-deploy -> falcon-lab-wildcard-admin
+
+status: BLOCKED: technique 'exploit.delete_bucket' is not in the approved library
+audit log: runs/c8d502b07fd2.audit.jsonl (hash chain VALID)

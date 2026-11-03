@@ -1,0 +1,4 @@
+run id: 07a35b746621   mode: dry-run
+
+status: BLOCKED: out-of-scope account (not on allowlist)
+audit log: runs/07a35b746621.audit.jsonl (hash chain VALID)

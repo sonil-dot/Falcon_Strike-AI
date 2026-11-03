@@ -1,0 +1,20 @@
+run id: 5bfe1ae34f65   mode: live
+[1/6] preflight OK: account 123456789012, mode LIVE (token + second key verified)
+[2/6] top path: Account 123456789012 (any principal) -> falcon-lab-lowpriv -> falcon-lab-deploy -> falcon-lab-wildcard-admin
+[3/6] plan approved by guardrails (6 actions)
+[4/6] baseline recorded
+[5/6] executing (non-destructive, reversible):
+   1. T1580  discovery.cloud_infra      OK   enumerated 3 roles, 2 security groups, 1 buckets
+   2. T1098  privesc.role_chain         OK   assumed role (short session, credentials discarded)
+   3. T1098  privesc.role_chain         OK   assumed role (short session, credentials discarded)
+   4. T1552  credaccess.marker_secret   OK   read marker parameter (value verified as marker, not logged)
+   5. T1136  persist.temp_role          OK   created tagged temp role (will be deleted at teardown)
+   6. T1071  c2.https_beacon            OK   sent 4/4 inert beacons to lab sink
+[6/6] teardown:
+teardown: VERIFIED - lab state equals baseline
+
+status: completed  (teardown VERIFIED)
+audit log: runs/5bfe1ae34f65.audit.jsonl (hash chain VALID)
+
+SOC report written to reports/5bfe1ae34f65/ (report.html, report.md, report.json)
+  detected 2 | partial 2 | missed 1 | IOC coverage 66.7% | MTTD 102.2 s

@@ -1,0 +1,4 @@
+run id: 920372a3a34f   mode: live
+
+status: BLOCKED: missing, invalid or expired authorisation token
+audit log: runs/920372a3a34f.audit.jsonl (hash chain VALID)
