@@ -156,8 +156,6 @@ python scripts/make_evidence.py --backend moto
 
 This runs the evidence-generation workflow using the mock AWS backend and saves supporting output in the `evidence` directory.
 
-**Note:** Live execution should only be performed in the intended test environment, with the required token and confirmation controls. Do not use an account or resources that you do not own or have explicit permission to test.
-
 ## Reports and Evidence
 
 The repository contains supporting project outputs.
