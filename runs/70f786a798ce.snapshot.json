@@ -1,0 +1,196 @@
+{
+  "account_id": "123456789012",
+  "iam": {
+    "UserDetailList": [],
+    "GroupDetailList": [],
+    "RoleDetailList": [
+      {
+        "Path": "/",
+        "RoleName": "falcon-lab-lowpriv",
+        "RoleId": "AROARZPUZDIKNPB6OJ4J6",
+        "Arn": "arn:aws:iam::123456789012:role/falcon-lab-lowpriv",
+        "CreateDate": "2026-11-03 13:24:46.519096+00:00",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": "sts:AssumeRole",
+              "Principal": {
+                "AWS": "arn:aws:iam::123456789012:root"
+              }
+            }
+          ]
+        },
+        "InstanceProfileList": [],
+        "RolePolicyList": [
+          {
+            "PolicyName": "assume-deploy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": "sts:AssumeRole",
+                  "Resource": "arn:aws:iam::123456789012:role/falcon-lab-deploy"
+                }
+              ]
+            }
+          }
+        ],
+        "AttachedManagedPolicies": [],
+        "Tags": [],
+        "RoleLastUsed": {}
+      },
+      {
+        "Path": "/",
+        "RoleName": "falcon-lab-deploy",
+        "RoleId": "AROARZPUZDIKIRUKG3ODH",
+        "Arn": "arn:aws:iam::123456789012:role/falcon-lab-deploy",
+        "CreateDate": "2026-11-03 13:24:46.526045+00:00",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": "sts:AssumeRole",
+              "Principal": {
+                "AWS": "arn:aws:iam::123456789012:role/falcon-lab-lowpriv"
+              }
+            }
+          ]
+        },
+        "InstanceProfileList": [],
+        "RolePolicyList": [
+          {
+            "PolicyName": "assume-admin",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": "sts:AssumeRole",
+                  "Resource": "arn:aws:iam::123456789012:role/falcon-lab-wildcard-admin"
+                }
+              ]
+            }
+          }
+        ],
+        "AttachedManagedPolicies": [],
+        "Tags": [],
+        "RoleLastUsed": {}
+      },
+      {
+        "Path": "/",
+        "RoleName": "falcon-lab-wildcard-admin",
+        "RoleId": "AROARZPUZDIKEXOMDOJ6A",
+        "Arn": "arn:aws:iam::123456789012:role/falcon-lab-wildcard-admin",
+        "CreateDate": "2026-11-03 13:24:46.529405+00:00",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": "sts:AssumeRole",
+              "Principal": {
+                "AWS": "arn:aws:iam::123456789012:role/falcon-lab-deploy"
+              }
+            }
+          ]
+        },
+        "InstanceProfileList": [],
+        "RolePolicyList": [
+          {
+            "PolicyName": "wildcard-all",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": "*",
+                  "Resource": "*"
+                }
+              ]
+            }
+          }
+        ],
+        "AttachedManagedPolicies": [],
+        "Tags": [],
+        "RoleLastUsed": {}
+      }
+    ],
+    "Policies": []
+  },
+  "exposure": {
+    "SecurityGroups": [
+      {
+        "GroupId": "sg-7fd6cee64ffc55be7",
+        "IpPermissionsEgress": [
+          {
+            "IpProtocol": "-1",
+            "UserIdGroupPairs": [],
+            "IpRanges": [
+              {
+                "CidrIp": "0.0.0.0/0"
+              }
+            ],
+            "Ipv6Ranges": [],
+            "PrefixListIds": []
+          }
+        ],
+        "Tags": [],
+        "VpcId": "vpc-de85de01020b96f11",
+        "SecurityGroupArn": "arn:aws:ec2:us-east-1:123456789012:security-group/sg-7fd6cee64ffc55be7",
+        "OwnerId": "123456789012",
+        "GroupName": "default",
+        "Description": "default VPC security group",
+        "IpPermissions": []
+      },
+      {
+        "GroupId": "sg-470aa746b1e36e77a",
+        "IpPermissionsEgress": [
+          {
+            "IpProtocol": "-1",
+            "UserIdGroupPairs": [],
+            "IpRanges": [
+              {
+                "CidrIp": "0.0.0.0/0"
+              }
+            ],
+            "Ipv6Ranges": [],
+            "PrefixListIds": []
+          }
+        ],
+        "Tags": [],
+        "VpcId": "vpc-de85de01020b96f11",
+        "SecurityGroupArn": "arn:aws:ec2:us-east-1:123456789012:security-group/sg-470aa746b1e36e77a",
+        "OwnerId": "123456789012",
+        "GroupName": "falcon-lab-open-sg",
+        "Description": "Lab: SSH open to world",
+        "IpPermissions": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "UserIdGroupPairs": [],
+            "IpRanges": [
+              {
+                "CidrIp": "0.0.0.0/0"
+              }
+            ],
+            "Ipv6Ranges": [],
+            "PrefixListIds": []
+          }
+        ]
+      }
+    ],
+    "Instances": [],
+    "Buckets": [
+      {
+        "Name": "falcon-lab-public-123456789012",
+        "PublicAccessBlock": null,
+        "IsPublic": true
+      }
+    ]
+  }
+}
