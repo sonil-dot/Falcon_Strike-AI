@@ -1,0 +1,8 @@
+boto3
+neo4j
+pydantic>=2
+pytest
+pytest-cov
+networkx
+anthropic  # only needed for --planner llm
+moto[all]>=5
